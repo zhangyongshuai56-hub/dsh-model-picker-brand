@@ -1,6 +1,6 @@
 {
   "name": "dsh-model-picker-brand",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Provider logos and model IDs in the DeepSeek Harness model picker — a label decorator on the official conversation.input.model.label slot, with registry-driven brand matching. Zero core changes.",
   "license": "MIT",
   "author": "zhangyongshuai",
