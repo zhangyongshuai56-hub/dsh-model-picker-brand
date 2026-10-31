@@ -1,0 +1,64 @@
+name: publish
+
+# 发布 dsh-model-picker-brand 到 npm。
+#
+# 走 npm 的 Trusted Publishing（OIDC）：不用 NPM_TOKEN，凭据由 npm 与 GitHub
+# 在运行时交换，并自动生成 provenance（可验证来源）。
+# npm 已宣布 2027-01 起限制 bypass-2FA token 的直发能力，OIDC 是官方替代路径。
+#
+# 启用前需要在 npmjs.com 一次性登记受信发布者：
+#   npmjs.com → 包页面 → Settings → Trusted Publishers → Add
+#   Provider: GitHub Actions
+#   Organization/User: zhangyongshuai56-hub
+#   Repository: dsh-model-picker-brand
+#   Workflow filename: publish.yml
+#
+# 触发方式：手动（workflow_dispatch）或推送 v* 标签。不会在普通 push 时发布。
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: '只做 npm pack 检查，不真正发布'
+        required: false
+        default: false
+        type: boolean
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  id-token: write # OIDC 所需
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+
+      # 升级到支持 trusted publishing 的 npm
+      - name: Use latest npm
+        run: npm install -g npm@latest
+
+      - name: Syntax check
+        run: npm run check
+
+      - name: Resolver tests
+        run: npm test
+
+      - name: Package contents
+        run: npm pack --dry-run
+
+      - name: Publish (dry run)
+        if: ${{ inputs.dry_run }}
+        run: npm publish --dry-run
+
+      - name: Publish
+        if: ${{ !inputs.dry_run }}
+        run: npm publish --provenance --access public
