@@ -1,6 +1,14 @@
+![Social preview](docs/social-preview.png)
+
 # dsh-model-picker-brand
 
-**Provider logos + model IDs in the DeepSeek Harness model picker.**
+**Provider logos and model IDs in the DeepSeek Harness model picker.**
+
+[![npm version](https://img.shields.io/npm/v/dsh-model-picker-brand)](https://www.npmjs.com/package/dsh-model-picker-brand)
+[![npm downloads](https://img.shields.io/npm/dm/dsh-model-picker-brand)](https://www.npmjs.com/package/dsh-model-picker-brand)
+[![GitHub stars](https://img.shields.io/github/stars/zhangyongshuai56-hub/dsh-model-picker-brand?style=social)](https://github.com/zhangyongshuai56-hub/dsh-model-picker-brand)
+[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+![provenance](https://img.shields.io/badge/npm-provenance%20signed-success)
 
 The composer's model picker normally shows one line of text — `DeepSeek-V4.1-Flash`. This plugin puts
 a **brand logo** in front of every model and adds the **model ID** beside the name, so you can tell at
@@ -9,7 +17,47 @@ a glance which provider a model belongs to and which exact route you are on.
 Zero core changes: it registers a label decorator on the official
 `conversation.input.model.label` slot. Disable the plugin and the picker is exactly as shipped.
 
+- **22 brand marks** — colored vectors, light and dark themes, 14px and 16px verified
+- **Registry-driven matching** — provider id, display name (Chinese included), or model prefix; unknown providers get a letter monogram instead of another vendor's logo
+- **Never breaks the picker** — every label renders inside a `try/catch` and falls back to `model.name`
+
 ![Dark and light themes at the real picker sizes](docs/preview.png)
+
+## Install
+
+### From the plugin wizard
+
+Open **Settings → Plugins → Add plugin**, search `dsh-model-picker-brand`, and click **Install**.
+
+### With the `dsh` CLI
+
+```sh
+dsh plugin --profile web add dsh-model-picker-brand
+```
+
+Straight from this repository, without npm:
+
+```sh
+dsh plugin --profile web add github:zhangyongshuai56-hub/dsh-model-picker-brand
+```
+
+### Update
+
+```sh
+dsh plugin --profile web update dsh-model-picker-brand@latest
+```
+
+Restart (or hot-reload) the host once. Remove the bundle entry to uninstall — nothing else is written.
+
+Requirements: `dsh >= 0.2.1-rc.2`. No build step, no runtime dependencies.
+
+## 中文说明
+
+输入框的模型选择器从「纯文本模型名」改为「提供商彩色 logo + 模型 ID」：触发按钮显示 `[logo] 模型ID`，
+菜单项与列表项显示 `[logo] 名称 + 灰色模型 ID`。零内核改动——只往官方插槽
+`conversation.input.model.label` 注册标签装饰器（priority −10 接管渲染），停用插件即恢复原样。
+
+安装：`dsh plugin --profile web add dsh-model-picker-brand`，重启生效。
 
 ## What changes
 
@@ -21,32 +69,6 @@ Zero core changes: it registers a label decorator on the official
 | Unknown provider | plain text | first-letter monogram in a colored chip |
 
 Hovering any label shows `name · id` as a title.
-
-## Install
-
-From npm (recommended — the market index reads npm versions):
-
-```sh
-dsh plugin --profile web add dsh-model-picker-brand
-```
-
-Straight from the repository:
-
-```sh
-dsh plugin --profile web add github:zhangyongshuai56-hub/dsh-model-picker-brand
-```
-
-Restart (or hot-reload) the host once. Remove the bundle entry to uninstall — nothing else is written.
-
-Requirements: `dsh >= 0.2.1-rc.2`. No build step, no runtime dependencies.
-
-## 中文说明
-
-输入框模型选择器从「纯文本模型名」改为「提供商彩色 logo + 模型 ID」：触发按钮显示
-`[logo] 模型ID`，菜单项与列表项显示 `[logo] 名称 + 灰色模型 ID`。零内核改动——只往官方插槽
-`conversation.input.model.label` 注册标签装饰器（priority −10 接管渲染），停用插件即恢复原样。
-
-安装：`dsh plugin --profile web add dsh-model-picker-brand`（或 `github:zhangyongshuai56-hub/dsh-model-picker-brand`），重启生效。
 
 ## How it works
 
@@ -119,6 +141,10 @@ lib/client.js       browser half — the label decorator and bundled vectors
 cordis.patch.yml    bundle patch that mounts the plugin
 tests/resolve.test.mjs
 ```
+
+Releases are published from CI through npm **trusted publishing** (OIDC, no token) with a SLSA
+provenance statement: pushing a `v*` tag runs `npm run check`, `npm test`, then
+`npm publish --provenance`. See `.github/workflows/publish.yml`.
 
 ## License
 
