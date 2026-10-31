@@ -1,0 +1,42 @@
+{
+  "name": "dsh-model-picker-brand",
+  "version": "0.1.0",
+  "description": "把输入框的模型选择器改成「提供商 logo + 模型 ID」：往官方插槽 conversation.input.model.label 注册标签装饰器，零内核改动，停用即恢复",
+  "license": "MIT",
+  "author": "local",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "locale",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "dsh": {
+    "engines": {
+      "dsh": ">=0.2.1-rc.2"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-slots"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "scripts": {
+    "check": "node --check lib/index.js && node --check lib/client.js",
+    "test": "node tests/resolve.test.mjs"
+  }
+}

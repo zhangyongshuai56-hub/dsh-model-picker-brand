@@ -1,0 +1,12 @@
+# Bundle patch for dsh-model-picker-brand.
+#
+# 只做一件事：把插件挂进 profile 的 loader。
+#
+# 插件本体是浏览器半边：往官方插槽 conversation.input.model.label 注册一个
+# 标签装饰器，把模型选择器从「纯文本名」改成「提供商 logo + 模型 ID」。
+# 不修改 @deepseek-ai/dsh-client-ui-model-selection 的任何字节。
+#
+# 回退：停用/移除本插件即可，选择器恢复原样。
+- insert:
+    - id: model-picker-brand
+      name: dsh-model-picker-brand
