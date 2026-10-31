@@ -1,9 +1,9 @@
 {
   "name": "dsh-model-picker-brand",
   "version": "0.1.0",
-  "description": "把输入框的模型选择器改成「提供商 logo + 模型 ID」：往官方插槽 conversation.input.model.label 注册标签装饰器，零内核改动，停用即恢复",
+  "description": "Provider logos and model IDs in the DeepSeek Harness model picker — a label decorator on the official conversation.input.model.label slot, with registry-driven brand matching. Zero core changes.",
   "license": "MIT",
-  "author": "local",
+  "author": "zhangyongshuai",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {
@@ -18,6 +18,22 @@
     "cordis.patch.yml",
     "README.md"
   ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "model-picker",
+    "provider-logo",
+    "ui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangyongshuai56-hub/dsh-model-picker-brand.git"
+  },
+  "homepage": "https://github.com/zhangyongshuai56-hub/dsh-model-picker-brand#readme",
+  "bugs": {
+    "url": "https://github.com/zhangyongshuai56-hub/dsh-model-picker-brand/issues"
+  },
   "dsh": {
     "engines": {
       "dsh": ">=0.2.1-rc.2"
@@ -31,6 +47,9 @@
         "@deepseek-ai/dsh-client-ui-slots"
       ]
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "engines": {
     "node": ">=22.19.0"

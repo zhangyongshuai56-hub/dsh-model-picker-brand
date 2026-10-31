@@ -24,6 +24,14 @@ Hovering any label shows `name · id` as a title.
 
 ## Install
 
+From npm (recommended — the market index reads npm versions):
+
+```sh
+dsh plugin --profile web add dsh-model-picker-brand
+```
+
+Straight from the repository:
+
 ```sh
 dsh plugin --profile web add github:zhangyongshuai56-hub/dsh-model-picker-brand
 ```
@@ -38,7 +46,7 @@ Requirements: `dsh >= 0.2.1-rc.2`. No build step, no runtime dependencies.
 `[logo] 模型ID`，菜单项与列表项显示 `[logo] 名称 + 灰色模型 ID`。零内核改动——只往官方插槽
 `conversation.input.model.label` 注册标签装饰器（priority −10 接管渲染），停用插件即恢复原样。
 
-安装：`dsh plugin --profile web add github:zhangyongshuai56-hub/dsh-model-picker-brand`，重启生效。
+安装：`dsh plugin --profile web add dsh-model-picker-brand`（或 `github:zhangyongshuai56-hub/dsh-model-picker-brand`），重启生效。
 
 ## How it works
 
