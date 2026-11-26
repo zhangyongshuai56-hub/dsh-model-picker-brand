@@ -56,6 +56,6 @@
   },
   "scripts": {
     "check": "node --check lib/index.js && node --check lib/client.js",
-    "test": "node tests/resolve.test.mjs"
+    "test": "node tests/resolve.test.mjs && node tests/logo-theme.test.mjs"
   }
 }
